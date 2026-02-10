@@ -7,7 +7,8 @@ import FundraiserPage from "./pages/FundraiserPage.jsx";
 import FundraiserCreatePage from "./pages/FundraiserCreatePage.jsx"
 import LoginPage from "./pages/LoginPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
-
+import ContactPage from "./pages/ContactPage.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 
 import Layout from "./components/Layout.jsx";
 
@@ -21,6 +22,8 @@ const router = createBrowserRouter([
       { path: "/fundraiser/:id", element: <FundraiserPage /> },
       { path: "/fundraiser/create", element: <FundraiserCreatePage /> },
       { path: "/signup", element: <SignUpPage /> },
+      { path: "/contact", element: <ContactPage /> },
+      { path: "/about", element: <AboutPage /> },
     ],
   },
 ]);

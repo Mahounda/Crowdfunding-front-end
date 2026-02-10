@@ -1,16 +1,18 @@
-async function postFundraiser(formData, token) {
-  const url = `${import.meta.env.VITE_API_URL}/fundraisers/`;
+async function updateFundraiser(id, formData) {
+  const url = `${import.meta.env.VITE_API_URL}/fundraisers/${id}/`;
+  const token = window.localStorage.getItem("token");
+
   const response = await fetch(url, {
-    method: "POST", // We need to tell the server that we are sending JSON data so we set the Content-Type header to application/json
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Token ${token}`
+      Authorization: `Token ${token}`,
     },
     body: JSON.stringify(formData),
-          });
+  });
 
   if (!response.ok) {
-    const fallbackError = `Error creating fundraiser`;
+    const fallbackError = `Error updating fundraiser`;
 
     const data = await response.json().catch(() => {
       throw new Error(fallbackError);
@@ -23,4 +25,5 @@ async function postFundraiser(formData, token) {
   return await response.json();
 }
 
-export default postFundraiser;
+export default updateFundraiser;
+

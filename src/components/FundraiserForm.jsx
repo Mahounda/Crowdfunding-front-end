@@ -1,5 +1,5 @@
 import { useState } from "react";
-import postFundraiser from "../api/post-fundraiser.js";
+import postFundraiser from "../api/post-Fundraiser.js";
 import { useNavigate } from "react-router-dom";
 
 function FundraiserForm() {
@@ -12,7 +12,7 @@ function FundraiserForm() {
     goal: "",
     image: "",
     is_open: true,
-    });
+  });
 
   const handleChange = (event) => {
     const { id, value } = event.target;
