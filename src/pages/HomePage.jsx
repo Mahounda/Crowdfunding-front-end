@@ -4,7 +4,7 @@ import "./HomePage.css";
 
 function HomePage() {
   const { fundraisers } = useFundraisers();
-
+  console.log(fundraisers)
   return (
     <div className="home-container">
 

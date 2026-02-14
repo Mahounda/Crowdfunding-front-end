@@ -18,27 +18,27 @@ function FundraiserForm() {
     const { id, value } = event.target;
     setFormData((prev) => ({
       ...prev,
-      [id]: value,
+      [id]: id === "goal" ? Number(value) : value,
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    postFundraiser(formData, token).then(() => {
-      console.log("Fundraiser created:", response);
-      navigate("/fundraisers/${response.id}");
-    });
+    const response = await postFundraiser(formData, token);
+    console.log("Fundraiser created:", response);
+    navigate(`/fundraiser/${response.id}`);
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="title">Title:</label>
         <input
           id="title"
           type="text"
           placeholder="Enter title"
+          value={formData.title}
           onChange={handleChange}
         />
       </div>
@@ -49,6 +49,7 @@ function FundraiserForm() {
           id="description"
           type="text"
           placeholder="enter description"
+          value={formData.description}
           onChange={handleChange}
         />
       </div>
@@ -59,6 +60,7 @@ function FundraiserForm() {
           id="goal"
           type="number"
           placeholder="enter goal"
+          value={formData.goal}
           onChange={handleChange}
         />
       </div>
@@ -69,15 +71,14 @@ function FundraiserForm() {
           id="image"
           type="text"
           placeholder="enter image URL"
+          value={formData.image}
           onChange={handleChange}
         />
       </div>
 
-      <button type="submit" onClick={handleSubmit}>
-        Create Fundraiser
-      </button>
+      <button type="submit">Create Fundraiser</button>
     </form>
   );
 }
 
-export default FundraiserForm;
+export default FundraiserForm

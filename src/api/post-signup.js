@@ -1,15 +1,20 @@
-async function postSignUp(formData) {
+async function postSignup(data) {
+  
   const url = `${import.meta.env.VITE_API_URL}/users/`;
   const response = await fetch(url, {
     method: "POST", // We need to tell the server that we are sending JSON data so we set the Content-Type header to application/json
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
-          });
+    body: JSON.stringify({
+      "email": data.email,
+      "username": data.username,
+      "password": data.password
+    }),
+  });
 
   if (!response.ok) {
-    const fallbackError = `Error trying to login`;
+    const fallbackError = `Error trying to signup`;
 
     const data = await response.json().catch(() => {
       throw new Error(fallbackError);
@@ -22,4 +27,4 @@ async function postSignUp(formData) {
   return await response.json();
 }
 
-export default postSignUp;
+export default postSignup;
