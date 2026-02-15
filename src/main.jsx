@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import EditPledgePage from "./pages/EditPledgePage";
 
 import HomePage from "./pages/HomePage.jsx";
 import FundraiserPage from "./pages/FundraiserPage.jsx";
@@ -20,10 +21,12 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/fundraiser/:id", element: <FundraiserPage /> },
+      { path: "/pledges/:id/edit", element: <EditPledgePage /> },
       { path: "/fundraiser/create", element: <FundraiserCreatePage /> },
       { path: "/signup", element: <SignUpPage /> },
       { path: "/contact", element: <ContactPage /> },
       { path: "/about", element: <AboutPage /> },
+
     ],
   },
 ]);
