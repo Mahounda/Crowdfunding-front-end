@@ -6,6 +6,9 @@ function FundraiserPage() {
   const { id } = useParams();
   // useFundraiser returns three pieces of info, so we need to grab them all here
   const { fundraiser, isLoading, error } = useFundraiser(id);
+  const userId = Number(localStorage.getItem("user_id"));
+  const isSuperuser = localStorage.getItem("is_superuser") === "true";
+
 
   if (isLoading) {
     return <p>loading...</p>;
@@ -14,18 +17,42 @@ function FundraiserPage() {
   if (error) {
     return <p>{error.message}</p>;
   }
-
+  if (error) {
+    return <p>{error.message}</p>;
+  }
   return (
     <div>
       <h2>{fundraiser.title}</h2>
       <h3>Created at: {fundraiser.date_created}</h3>
       <h3>{`Status: ${fundraiser.is_open}`}</h3>
+
+      {/* Owner can edit fundraiser */}
+      {fundraiser.owner === userId && (
+        <button>Edit Fundraiser</button>
+      )}
+      {/* Superuser can delete fundraiser */}
+      {isSuperuser && (
+        <button>Delete Fundraiser</button>
+      )}
+
       <h3>Pledges:</h3>
       <ul>
         {fundraiser.pledges.map((pledgeData, key) => {
           return (
             <li key={key}>
               {pledgeData.amount} from {pledgeData.supporter}
+              {/* Supporter can edit/delete their own pledge while fundraiser is open */}
+              {pledgeData.supporter === userId && fundraiser.is_open && (
+                <>
+                  <button>Edit</button>
+                  <button>Delete</button>
+                </>
+              )}
+
+              {/* Superuser override */}
+              {isSuperuser && (
+                <button>Admin Delete</button>
+              )}
             </li>
           );
         })}
