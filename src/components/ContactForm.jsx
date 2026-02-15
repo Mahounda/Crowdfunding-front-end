@@ -1,4 +1,6 @@
+import "../pages/Forms.css";
 import { useState } from "react";
+import "../components/NavBar.css";
 
 function ContactForm() {
   const [formData, setFormData] = useState({

@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import usePledge from "../hooks/use-pledge";
-import "./form.css";
+import "./FundraiserPage.css";
 
 function EditPledgePage() {
   const { id } = useParams(); // pledge ID from URL

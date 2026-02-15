@@ -1,3 +1,5 @@
+import "../pages/Forms.css";
+import "../components/NavBar.css";
 async function postPledge(pledgeData) {
   const url = `${import.meta.env.VITE_API_URL}/pledges/`;
   const token = window.localStorage.getItem("token");

@@ -1,6 +1,8 @@
+import "../pages/Forms.css";
 import { useState } from "react";
 import postLogin from "../api/post-login.js";
 import { useNavigate } from "react-router-dom";
+import "../components/NavBar.css";
 
 function LoginForm() {
   const navigate = useNavigate();

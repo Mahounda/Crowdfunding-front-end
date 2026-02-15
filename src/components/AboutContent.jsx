@@ -1,3 +1,4 @@
+import "../components/NavBar.css";
 function AboutContent() {
   return (
     <div>

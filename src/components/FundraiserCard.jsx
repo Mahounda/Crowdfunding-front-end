@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./FundraiserCard.css";
+import "../components/NavBar.css";
 
 function FundraiserCard(props) {
   const { fundraiserData } = props;

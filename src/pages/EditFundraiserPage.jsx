@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "./form.css";
+import "./FundraiserPage.css";
 
 function EditFundraiserPage() {
   const { id } = useParams();

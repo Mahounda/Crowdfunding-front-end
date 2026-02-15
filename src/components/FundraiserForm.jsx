@@ -1,6 +1,8 @@
+import "../pages/Forms.css";
 import { useState } from "react";
-import postFundraiser from "../api/post-Fundraiser.js";
+import postFundraiser from "../api/post-fundraiser.js";
 import { useNavigate } from "react-router-dom";
+import "../components/NavBar.css";
 
 function FundraiserForm() {
   const navigate = useNavigate();
