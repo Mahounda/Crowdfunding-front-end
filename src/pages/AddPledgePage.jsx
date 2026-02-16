@@ -7,7 +7,7 @@ function AddPledgePage() {
   const [searchParams] = useSearchParams();
 
   // fundraiser ID comes from URL: /pledges/new?fundraiser=3
-  const fundraiserId = searchParams.get("fundraiser");
+  const fundraiserId = searchParams.get("/fundraisers/${fundraiserId}");
 
   const [formData, setFormData] = useState({
     amount: "",

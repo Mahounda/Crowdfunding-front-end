@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import EditPledgePage from "./pages/EditPledgePage";
 import EditFundraiserPage from "./pages/EditFundraiserPage";
 import AddPledgePage from "./pages/AddPledgePage";
+import { AuthProvider } from "./context/AuthProvider";
 
 import HomePage from "./pages/HomePage.jsx";
 import FundraiserPage from "./pages/FundraiserPage.jsx";
@@ -39,7 +40,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* Here we wrap our app in the router provider so they render */}
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+    <AuthProvider>     
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </React.StrictMode>
 );
