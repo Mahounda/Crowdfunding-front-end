@@ -1,30 +1,20 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import usePledge from "../hooks/use-pledge";
-import "./EditPledgePage.css";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import "./Forms.css";
 
-function EditPledgePage() {
-  const { id } = useParams(); // pledge ID from URL
+function AddPledgePage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const { pledge, isLoading, error } = usePledge(id);
+  // fundraiser ID comes from URL: /pledges/new?fundraiser=3
+  const fundraiserId = searchParams.get("fundraiser");
 
   const [formData, setFormData] = useState({
     amount: "",
     comment: "",
     anonymous: false,
+    fundraiser: fundraiserId,
   });
-
-  // Pre-fill form when pledge loads
-  useEffect(() => {
-    if (pledge) {
-      setFormData({
-        amount: pledge.amount,
-        comment: pledge.comment,
-        anonymous: pledge.anonymous,
-      });
-    }
-  }, [pledge]);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -41,30 +31,28 @@ function EditPledgePage() {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/pledges/${id}/`,
+      `${import.meta.env.VITE_API_URL}/pledges/`,
       {
-        method: "PATCH",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${token}`,
         },
         body: JSON.stringify(formData),
+
       }
     );
 
     if (response.ok) {
-      navigate(`/fundraiser/${pledge.fundraiser}`); // ⭐ FIXED
+      navigate(`/fundraisers/${fundraiserId}`);
     } else {
-      alert("Failed to update pledge");
+      alert("Failed to create pledge");
     }
   };
 
-  if (isLoading) return <p>Loading pledge...</p>;
-  if (error) return <p>{error.message}</p>;
-
   return (
     <div className="form-container">
-      <h2>Edit Pledge</h2>
+      <h2>Add a Pledge</h2>
 
       <form onSubmit={handleSubmit}>
         <label>
@@ -100,11 +88,10 @@ function EditPledgePage() {
           Anonymous
         </label>
 
-        <button type="submit">Save Changes</button>
+        <button type="submit">Submit Pledge</button>
       </form>
     </div>
   );
 }
 
-export default EditPledgePage;
-
+export default AddPledgePage;

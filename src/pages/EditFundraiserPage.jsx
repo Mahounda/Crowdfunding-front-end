@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "./FundraiserPage.css";
+import "./EditFundraiserPage.css";
 
 function EditFundraiserPage() {
   const { id } = useParams();
@@ -31,7 +31,8 @@ function EditFundraiserPage() {
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-setFormData({
+
+    setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
@@ -55,7 +56,7 @@ setFormData({
     );
 
     if (response.ok) {
-      navigate(`/fundraisers/${id}`);
+      navigate(`/fundraiser/${id}`); // ⭐ FIXED
     } else {
       alert("Failed to update fundraiser");
     }
@@ -127,4 +128,3 @@ setFormData({
 }
 
 export default EditFundraiserPage;
-
