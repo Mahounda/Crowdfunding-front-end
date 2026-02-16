@@ -11,17 +11,14 @@ function FundraiserPage() {
   const userId = Number(localStorage.getItem("user_id"));
   const isSuperuser = localStorage.getItem("is_superuser") === "true";
 
-  // Edit fundraiser
   const handleEditFundraiser = () => {
     navigate(`/fundraisers/${id}/edit`);
   };
 
-  // Edit pledge
   const handleEditPledge = (pledgeId) => {
     navigate(`/pledges/${pledgeId}/edit`);
   };
 
-  // Delete pledge
   const handleDeletePledge = async (pledgeId) => {
     const token = localStorage.getItem("token");
 
@@ -42,7 +39,6 @@ function FundraiserPage() {
     }
   };
 
-// Delete fundraiser
   const handleDeleteFundraiser = async () => {
     const token = localStorage.getItem("token");
 
@@ -71,11 +67,24 @@ function FundraiserPage() {
     0
   );
 
-  const progress = Math.min((totalPledged / fundraiser.goal) * 100, 100);
+   const progress = Math.min((totalPledged / fundraiser.goal) * 100, 100);
 
   return (
-    <div>
+    <div className="fundraiser-page">
       <h2>{fundraiser.title}</h2>
+
+      {/* Image */}
+      {fundraiser.image && (
+        <img
+          src={fundraiser.image}
+          alt={fundraiser.title}
+          className="fundraiser-image"
+        />
+      )}
+
+      {/* Description */}
+      <p className="fundraiser-description">{fundraiser.description}</p>
+
       <h3>Created at: {fundraiser.date_created}</h3>
       <h3>Status: {fundraiser.is_open ? "Open" : "Closed"}</h3>
 
@@ -89,6 +98,13 @@ function FundraiserPage() {
         ></div>
       </div>
 
+      {/* Add pledge button (only if open) */}
+      {fundraiser.is_open && (
+        <button onClick={() => navigate(`/pledges/new?fundraiser=${id}`)}>
+          Add Pledge
+        </button>
+      )}
+
       {/* Owner can edit fundraiser */}
       {fundraiser.owner === userId && (
         <button onClick={handleEditFundraiser}>Edit Fundraiser</button>
@@ -101,10 +117,13 @@ function FundraiserPage() {
 
       <h3>Pledges:</h3>
       <ul>
-        {fundraiser.pledges.map((pledgeData, key) => {
+        {fundraiser.pledges.map((pledgeData) => {
           return (
-            <li key={key}>
-              {pledgeData.amount} from {pledgeData.supporter}
+            <li key={pledgeData.id}>
+              <strong>${pledgeData.amount}</strong>{" "}
+              from{" "}
+              {pledgeData.anonymous ? "Anonymous" : pledgeData.supporter}
+              <p>Comment: {pledgeData.comment}</p>
 
               {/* Supporter can edit/delete their own pledge */}
               {pledgeData.supporter === userId && fundraiser.is_open && (
@@ -124,8 +143,8 @@ function FundraiserPage() {
                 <button onClick={() => handleDeletePledge(pledgeData.id)}>
                   Admin Delete
                 </button>
-               )}
-            </li>
+              )}
+              </li>
           );
         })}
       </ul>
