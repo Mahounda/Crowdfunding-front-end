@@ -1,6 +1,6 @@
 import "../pages/Forms.css";
 import { useState } from "react";
-import postFundraiser from "../api/post-fundraisers.js";
+import postFundraiser from "../api/post-fundraiser.js";
 import { useNavigate } from "react-router-dom";
 import "../components/NavBar.css";
 
