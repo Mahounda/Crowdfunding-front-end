@@ -105,6 +105,10 @@ function FundraiserPage() {
         <button onClick={handleEditFundraiser}>Edit Fundraiser</button>
       )}
 
+      {(fundraiser.owner === userId || isSuperuser) && (
+        <button onClick={handleEditFundraiser}>Edit Fundraiser</button>
+      )}
+
       {isSuperuser && (
         <button onClick={handleDeleteFundraiser}>Delete Fundraiser</button>
       )}
