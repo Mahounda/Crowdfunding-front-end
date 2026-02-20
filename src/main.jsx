@@ -39,9 +39,8 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AuthProvider>     
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </React.StrictMode>
+// TODO: Re-enable StrictMode once the app is stable
+<AuthProvider>
+  <RouterProvider router={router} />
+</AuthProvider>
 );
