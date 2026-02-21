@@ -29,7 +29,7 @@ function FundraiserPage() {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
     if (response.status === 204) {
       window.location.reload();
@@ -48,7 +48,7 @@ function FundraiserPage() {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     if (response.status === 204) {
@@ -63,7 +63,7 @@ function FundraiserPage() {
 
   const totalPledged = fundraiser.pledges.reduce(
     (sum, pledge) => sum + pledge.amount,
-    0
+    0,
   );
 
   const progress = Math.min((totalPledged / fundraiser.goal) * 100, 100);
@@ -89,10 +89,7 @@ function FundraiserPage() {
       <h3>Total pledged: ${totalPledged}</h3>
 
       <div className="progress-container">
-        <div
-          className="progress-bar"
-          style={{ width: `${progress}%` }}
-        ></div>
+        <div className="progress-bar" style={{ width: `${progress}%` }}></div>
       </div>
 
       {fundraiser.is_open && (
@@ -113,29 +110,22 @@ function FundraiserPage() {
       <ul>
         {fundraiser.pledges.map((pledgeData) => (
           <li key={pledgeData.id}>
-            <strong>${pledgeData.amount}</strong>{" "}
-            from{" "}
+            <strong>${pledgeData.amount}</strong> from{" "}
             {pledgeData.anonymous ? "Anonymous" : pledgeData.supporter}
-
             <p>Comment: {pledgeData.comment}</p>
-
             {pledgeData.supporter === userId && fundraiser.is_open && (
               <>
                 <button onClick={() => handleEditPledge(pledgeData.id)}>
                   Edit
                 </button>
-
-                <button onClick={() => handleDeletePledge(pledgeData.id)}>
-                  Delete
-                </button>
               </>
             )}
-
-            {isSuperuser && (
+            {(pledgeData.supporter === userId && fundraiser.is_open) ||
+            isSuperuser ? (
               <button onClick={() => handleDeletePledge(pledgeData.id)}>
-                Admin Delete
+                Delete
               </button>
-            )}
+            ) : null}
           </li>
         ))}
       </ul>
