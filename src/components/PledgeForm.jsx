@@ -8,10 +8,10 @@ function PledgeForm() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  // Retrieve fundraiser ID from the URL
   const fundraiserId = Number(searchParams.get("fundraiser"));
+  console.log("Fundraiser ID from URL:", fundraiserId);
 
-  // Retrieve logged-in user ID
+
   const userId = Number(window.localStorage.getItem("user_id"));
 
   const [formData, setFormData] = useState({
@@ -61,7 +61,7 @@ function PledgeForm() {
         value={formData.amount}
         onChange={handleChange}
         required
-       />
+      />
 
       <label htmlFor="comment">Comment:</label>
       <input
