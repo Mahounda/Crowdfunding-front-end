@@ -11,12 +11,16 @@ export default function useFundraiser(fundraiserId) {
     // Here we pass the fundraiserId to the getFundraiser function.
     getFundraiser(fundraiserId)
       .then((fundraiser) => {
+        if (!ignore) {
         setFundraiser(fundraiser);
         setIsLoading(false);
+        }
       })
       .catch((error) => {
+        if (!ignore) {
         setError(error);
         setIsLoading(false);
+        }
       });
 
     // This time we pass the fundraiserId to the dependency array so that the hook will re-run if the fundraiserId changes.
