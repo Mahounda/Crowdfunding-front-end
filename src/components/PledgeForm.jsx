@@ -1,30 +1,88 @@
+import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import postPledge from "../api/post-pledge";
 import "../pages/Forms.css";
 import "../components/NavBar.css";
-async function postPledge(pledgeData) {
-  const url = `${import.meta.env.VITE_API_URL}/pledges/`;
-  const token = window.localStorage.getItem("token");
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
-    },
-    body: JSON.stringify(pledgeData),
+function PledgeForm() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  // Retrieve fundraiser ID from the URL
+  const fundraiserId = Number(searchParams.get("fundraiser"));
+
+  // Retrieve logged-in user ID
+  const userId = Number(window.localStorage.getItem("user_id"));
+
+  const [formData, setFormData] = useState({
+    amount: "",
+    comment: "",
+    anonymous: false,
   });
 
-  if (!response.ok) {
-    const fallbackError = `Error trying to create pledge`;
+  const handleChange = (event) => {
+    const { id, value, type, checked } = event.target;
 
-    const data = await response.json().catch(() => {
-      throw new Error(fallbackError);
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: type === "checkbox" ? checked : value,
+    }));
+  };
 
-    const errorMessage = data?.detail ?? fallbackError;
-    throw new Error(errorMessage);
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-return await response.json();
+    const pledgeData = {
+      amount: Number(formData.amount),
+      comment: formData.comment,
+      anonymous: formData.anonymous,
+      supporter: userId,
+      fundraiser: fundraiserId, 
+    };
+
+    postPledge(pledgeData)
+      .then(() => {
+        navigate(`/fundraisers/${fundraiserId}`);
+      })
+      .catch((error) => {
+        console.error("Error creating pledge:", error);
+        alert("Could not create pledge.");
+      });
+  };
+
+  return (
+    <form className="form-container" onSubmit={handleSubmit}>
+      <h2>Add a Pledge</h2>
+
+      <label htmlFor="amount">Amount:</label>
+      <input
+        type="number"
+        id="amount"
+        value={formData.amount}
+        onChange={handleChange}
+        required
+       />
+
+      <label htmlFor="comment">Comment:</label>
+      <input
+        type="text"
+        id="comment"
+        value={formData.comment}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="anonymous">Anonymous:</label>
+      <input
+        type="checkbox"
+        id="anonymous"
+        checked={formData.anonymous}
+        onChange={handleChange}
+      />
+
+      <button type="submit">Submit Pledge</button>
+    </form>
+  );
 }
 
-export default postPledge;
+export default PledgeForm;
+

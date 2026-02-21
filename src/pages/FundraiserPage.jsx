@@ -29,8 +29,9 @@ function FundraiserPage() {
         headers: {
           Authorization: `Token ${token}`,
         },
-      },
+       }
     );
+
     if (response.status === 204) {
       window.location.reload();
     } else {
@@ -48,7 +49,7 @@ function FundraiserPage() {
         headers: {
           Authorization: `Token ${token}`,
         },
-      },
+      }
     );
 
     if (response.status === 204) {
@@ -57,16 +58,18 @@ function FundraiserPage() {
       alert("Failed to delete fundraiser");
     }
   };
-
+  
   if (isLoading) return <p>loading...</p>;
   if (error) return <p>{error.message}</p>;
 
   const totalPledged = fundraiser.pledges.reduce(
     (sum, pledge) => sum + pledge.amount,
-    0,
+    0
   );
 
   const progress = Math.min((totalPledged / fundraiser.goal) * 100, 100);
+
+  console.log("fundraiser.pledges:", fundraiser.pledges);
 
   return (
     <div className="fundraiser-page">
@@ -107,29 +110,39 @@ function FundraiserPage() {
       )}
 
       <h3>Pledges:</h3>
+
       <ul>
-        {fundraiser.pledges.map((pledgeData) => (
-          <li key={pledgeData.id}>
-            <strong>${pledgeData.amount}</strong> from{" "}
-            {pledgeData.anonymous ? "Anonymous" : pledgeData.supporter}
-            <p>Comment: {pledgeData.comment}</p>
-            {pledgeData.supporter === userId && fundraiser.is_open && (
-              <>
+        {fundraiser.pledges.map((pledgeData) => {
+          console.log("pledge supporter:", pledgeData.supporter);
+          console.log("logged user:", userId);
+          console.log("is superuser:", isSuperuser);
+          console.log("fundraiser open:", fundraiser.is_open);
+
+          return (
+            <li key={pledgeData.id}>
+              <strong>${pledgeData.amount}</strong> from{" "}
+              {pledgeData.anonymous ? "Anonymous" : pledgeData.supporter}
+
+              <p>Comment: {pledgeData.comment}</p>
+
+              {pledgeData.supporter === userId && fundraiser.is_open && (
                 <button onClick={() => handleEditPledge(pledgeData.id)}>
                   Edit
                 </button>
-              </>
-            )}
-            {(pledgeData.supporter === userId && fundraiser.is_open) ||
-            isSuperuser ? (
-              <button onClick={() => handleDeletePledge(pledgeData.id)}>
-                Delete
-              </button>
-            ) : null}
-          </li>
-        ))}
+              )}
+
+              {(pledgeData.supporter === userId && fundraiser.is_open) ||
+              isSuperuser ? (
+                <button onClick={() => handleDeletePledge(pledgeData.id)}>
+                  Delete
+                </button>
+              ) : null}
+            </li>
+          );
+        })}
       </ul>
     </div>
+
   );
 }
 
