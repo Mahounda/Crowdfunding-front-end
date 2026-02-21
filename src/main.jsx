@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import EditPledgePage from "./pages/EditPledgePage";
 import EditFundraiserPage from "./pages/EditFundraiserPage";
-import AddPledgePage from "./pages/AddPledgePage";
 import { AuthProvider } from "./context/AuthProvider";
 
 import HomePage from "./pages/HomePage.jsx";
@@ -25,7 +24,6 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/fundraisers/:id", element: <FundraiserPage /> },
-      { path: "/pledges/:id/edit", element: <EditPledgePage /> },
       { path: "/fundraisers/create", element: <FundraiserCreatePage /> },
       { path: "/fundraisers/:id/edit", element: <EditFundraiserPage /> },
       { path: "/pledges/new", element: <PledgeForm /> },
@@ -41,7 +39,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 // TODO: Re-enable StrictMode once the app is stable
-<AuthProvider>
-  <RouterProvider router={router} />
-</AuthProvider>
+  <React.StrictMode>
+    <AuthProvider>     
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </React.StrictMode>
 );

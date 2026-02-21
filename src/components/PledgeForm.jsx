@@ -7,13 +7,8 @@ import "../components/NavBar.css";
 function PledgeForm() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
   const fundraiserId = Number(searchParams.get("fundraiser"));
-  console.log("Fundraiser ID from URL:", fundraiserId);
-
-
   const userId = Number(window.localStorage.getItem("user_id"));
-
   const [formData, setFormData] = useState({
     amount: "",
     comment: "",
@@ -40,9 +35,7 @@ function PledgeForm() {
       fundraiser: fundraiserId, 
     };
 
-    console.log("Pledge data being sent:", pledgeData);
-
-    postPledge(pledgeData)
+      postPledge(pledgeData)
       .then(() => {
         navigate(`/fundraisers/${fundraiserId}`);
       })

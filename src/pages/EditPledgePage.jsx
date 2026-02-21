@@ -53,7 +53,7 @@ function EditPledgePage() {
     );
 
     if (response.ok) {
-      navigate(`/fundraiser/${pledge.fundraiser}`); // ⭐ FIXED
+      navigate(`/fundraiser/${pledge.fundraiser}`); 
     } else {
       alert("Failed to update pledge");
     }

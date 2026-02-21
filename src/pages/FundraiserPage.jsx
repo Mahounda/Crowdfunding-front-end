@@ -29,7 +29,7 @@ function FundraiserPage() {
         headers: {
           Authorization: `Token ${token}`,
         },
-       }
+      }
     );
 
     if (response.status === 204) {
@@ -68,8 +68,6 @@ function FundraiserPage() {
   );
 
   const progress = Math.min((totalPledged / fundraiser.goal) * 100, 100);
-
-  console.log("fundraiser.pledges:", fundraiser.pledges);
 
   return (
     <div className="fundraiser-page">
@@ -113,11 +111,6 @@ function FundraiserPage() {
 
       <ul>
         {fundraiser.pledges.map((pledgeData) => {
-          console.log("pledge supporter:", pledgeData.supporter);
-          console.log("logged user:", userId);
-          console.log("is superuser:", isSuperuser);
-          console.log("fundraiser open:", fundraiser.is_open);
-
           return (
             <li key={pledgeData.id}>
               <strong>${pledgeData.amount}</strong> from{" "}

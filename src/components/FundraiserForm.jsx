@@ -28,7 +28,6 @@ function FundraiserForm() {
     event.preventDefault();
 
     const response = await postFundraiser(formData, token);
-    console.log("Fundraiser created:", response);
     navigate(`/fundraiser/${response.id}`);
   };
 

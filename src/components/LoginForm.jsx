@@ -21,8 +21,6 @@ function LoginForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(credentials.username);
-    console.log(credentials.password);
     if (credentials.username && credentials.password) {
       postLogin(credentials.username, credentials.password).then((response) => {
         window.localStorage.setItem("token", response.token);
