@@ -40,6 +40,8 @@ function PledgeForm() {
       fundraiser: fundraiserId, 
     };
 
+    console.log("Pledge data being sent:", pledgeData);
+
     postPledge(pledgeData)
       .then(() => {
         navigate(`/fundraisers/${fundraiserId}`);

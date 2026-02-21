@@ -1,6 +1,10 @@
+console.log("POST PLEDGE FUNCTION LOADED");
+
 async function postPledge(pledgeData) {
   const url = `${import.meta.env.VITE_API_URL}/pledges/`;
   const token = window.localStorage.getItem("token");
+
+  console.log("DATA SENT TO BACKEND:", pledgeData);
 
   const response = await fetch(url, {
     method: "POST",

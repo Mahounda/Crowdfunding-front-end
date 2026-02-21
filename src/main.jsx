@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import EditPledgePage from "./pages/EditPledgePage";
 import EditFundraiserPage from "./pages/EditFundraiserPage";
 import AddPledgePage from "./pages/AddPledgePage";
-import PledgeForm from "./pages/PledgePage";
 import { AuthProvider } from "./context/AuthProvider";
 
 import HomePage from "./pages/HomePage.jsx";
@@ -25,9 +24,9 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/login", element: <LoginPage /> },
-      { path: "/fundraiser/:id", element: <FundraiserPage /> },
+      { path: "/fundraisers/:id", element: <FundraiserPage /> },
       { path: "/pledges/:id/edit", element: <EditPledgePage /> },
-      { path: "/fundraiser/create", element: <FundraiserCreatePage /> },
+      { path: "/fundraisers/create", element: <FundraiserCreatePage /> },
       { path: "/fundraisers/:id/edit", element: <EditFundraiserPage /> },
       { path: "/pledges/new", element: <PledgeForm /> },
       { path: "/pledges/:id/edit", element: <EditPledgePage /> },
