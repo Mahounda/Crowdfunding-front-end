@@ -28,7 +28,7 @@ function FundraiserForm() {
     event.preventDefault();
 
     const response = await postFundraiser(formData, token);
-    navigate(`/fundraiser/${response.id}`);
+    navigate(`/fundraisers/id}`);
   };
 
   return (
