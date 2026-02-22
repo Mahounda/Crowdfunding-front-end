@@ -6,6 +6,9 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
 
   const login = (tokenValue) => {
+     // Save token to localStorage
+    localStorage.setItem("token", tokenValue);
+  // Update React state
     setToken(tokenValue);
   };
 
