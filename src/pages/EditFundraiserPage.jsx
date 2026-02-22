@@ -56,7 +56,7 @@ function EditFundraiserPage() {
     );
 
     if (response.ok) {
-      navigate(`/fundraisers/${id}`); // ⭐ FIXED
+      navigate(`/fundraisers/${id}`); 
     } else {
       alert("Failed to update fundraiser");
     }
