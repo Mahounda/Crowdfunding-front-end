@@ -7,16 +7,27 @@ export default function usePledge(pledgeId) {
   const [error, setError] = useState();
 
   useEffect(() => {
+    let ignore = false; // prevents StrictMode double-fetch from updating state
+
     getPledge(pledgeId)
       .then((pledge) => {
-        setPledge(pledge);
-        setIsLoading(false);
+        if (!ignore) {
+          setPledge(pledge);
+          setIsLoading(false);
+        }
       })
       .catch((error) => {
-        setError(error);
-        setIsLoading(false);
+        if (!ignore) {
+          setError(error);
+          setIsLoading(false);
+        }
       });
+
+    return () => {
+      ignore = true; // cleanup: ignore the second StrictMode effect run
+    };
   }, [pledgeId]);
 
   return { pledge, isLoading, error };
 }
+
