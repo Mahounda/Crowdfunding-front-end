@@ -11,12 +11,12 @@ function FundraiserForm() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    goal: "",
+    goal: 0,
     image: "",
     is_open: true,
   });
 
-  const handleChange = (event) => {
+    const handleChange = (event) => {
     const { id, value } = event.target;
     setFormData((prev) => ({
       ...prev,
@@ -25,11 +25,22 @@ function FundraiserForm() {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+  event.preventDefault();
+  
+  if (!formData.goal || Number(formData.goal) <= 0) {
+  alert("Goal must be a positive number");
+  return;
+  }
 
-    const response = await postFundraiser(formData, token);
-    navigate(`/fundraisers/id}`);
+  // Ensure goal is a number
+  const payload = {
+    ...formData,
+    goal: Number(formData.goal),
   };
+  const response = await postFundraiser(payload, token);
+
+  navigate(`/fundraisers/${response.id}`);
+};
 
   return (
     <form onSubmit={handleSubmit}>
