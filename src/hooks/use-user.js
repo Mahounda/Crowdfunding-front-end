@@ -8,19 +8,29 @@ export default function useUser(userId) {
     const [error, setError] = useState();
 
     useEffect(() => {
-  // Here we pass the fundraiserId to the getFundraiser function.
-    getUser(userId)
-    .then((user) => {
-    setUser(user);
-              setIsLoading(false);
-          })
-          .catch((error) => {
-            setError(error);
-            setIsLoading(false);
+        let ignore = false; // prevents StrictMode double-fetch from updating state
+
+        // Here we pass the fundraiserId to the getFundraiser function.
+        getUser(userId)
+            .then((user) => {
+                if (!ignore) {
+                    setUser(user);
+                    setIsLoading(false);
+                }
+            })
+            .catch((error) => {
+                if (!ignore) {
+                    setError(error);
+                    setIsLoading(false);
+                }
             });
 
-        // This time we pass the userId to the dependency array so that the hook will re-run if the userId changes.
-      }, [userId]);
+        return () => {
+            ignore = true; // cleanup: ignore the second StrictMode effect run
+        };
 
-      return {user, isLoading, error};
+        // This time we pass the userId to the dependency array so that the hook will re-run if the userId changes.
+    }, [userId]);
+
+    return {user, isLoading, error};
 }
