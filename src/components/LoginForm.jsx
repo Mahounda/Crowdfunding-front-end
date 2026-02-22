@@ -4,7 +4,7 @@ import postLogin from "../api/post-login.js";
 import { useNavigate } from "react-router-dom";
 import "../components/NavBar.css";
 
-function LoginForm() {
+function LoginForm({ redirectTo }) {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",
@@ -27,7 +27,7 @@ function LoginForm() {
         window.localStorage.setItem("user_id", response.user_id);
         window.localStorage.setItem("email", response.email);
         window.localStorage.setItem("is_superuser", response.is_superuser);
-        navigate("/");
+        navigate(redirectTo, { replace: true });
       });
     }
   };
