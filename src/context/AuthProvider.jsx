@@ -21,8 +21,13 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    setToken(null);
-  };
+  // Remove token from localStorage
+  localStorage.removeItem("token");
+
+  // Clear React state
+  setToken(null);
+};
+
 
   return (
     <AuthContext.Provider value={{ token, login, logout }}>

@@ -1,7 +1,10 @@
+import { useAuth } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import "../components/NavBar.css";
 
 function NavBar() {
+  const { token, logout } = useAuth();
+
   return (
     <nav className="navbar">
       <Link to="/" className="nav-logo">
@@ -10,7 +13,13 @@ function NavBar() {
 
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <Link to="/login">Log In</Link>
+
+        {token ? (
+          <button onClick={logout}>Logout</button>
+        ) : (
+          <Link to="/login">Log In</Link>
+        )}
+
         <Link to="/signup">Sign Up</Link>
         <Link to="/fundraisers/create">Create Fundraiser</Link>
         <Link to="/contact">Contact</Link>
