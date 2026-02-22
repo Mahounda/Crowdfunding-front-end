@@ -40,6 +40,7 @@ function LoginForm({ redirectTo }) {
           type="text"
           id="username"
           placeholder="Enter username"
+          autoComplete="username"
           onChange={handleChange}
         />
       </div>
@@ -49,6 +50,7 @@ function LoginForm({ redirectTo }) {
           type="password"
           id="password"
           placeholder="Password"
+          autoComplete="current-password"
           onChange={handleChange}
         />
       </div>
