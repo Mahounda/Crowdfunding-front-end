@@ -13,17 +13,28 @@ export default function useFundraisers() {
   // We use the useEffect hook to fetch the fundraisers from the API and update the state variables accordingly.
   // This useEffect will only run once, when the component this hook is used in is mounted.
   useEffect(() => {
+    let ignore = false; // prevents StrictMode double-fetch from updating state
+
     getFundraisers()
       .then((fundraisers) => {
-        setFundraisers(fundraisers);
-        setIsLoading(false);
+        if (!ignore) {
+          setFundraisers(fundraisers);
+          setIsLoading(false);
+        }
       })
       .catch((error) => {
-        setError(error);
-        setIsLoading(false);
+        if (!ignore) {
+          setError(error);
+          setIsLoading(false);
+        }
       });
+
+    return () => {
+      ignore = true; // cleanup: ignore the second StrictMode effect run
+    };
   }, []);
 
   // Finally, we return the state variables and the error. As the state in this hook changes it will update these values and the component using this hook will re-render.
   return { fundraisers, isLoading, error };
 }
+
