@@ -6,7 +6,9 @@ function Layout() {
     <div>
       <NavBar />
       <Outlet />
-      <footer>ByMahoundaPoinsonnet</footer>
+      <footer className="cf-footer">
+        © 2026 2gethR Crowdfunding — Built by Mahounda Poinsonnet
+      </footer>
     </div>
   );
 }
