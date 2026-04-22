@@ -39,6 +39,14 @@
         padding: 1rem;
         text-align: center;
     }
+    
+    @media (max-width: 480px) {
+    .cf-footer {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+    }
+}
 
     .nav-links {
         gap: 1rem;
@@ -52,8 +60,8 @@
 }
 
 .cf-footer {
-    background-color: #380310;
-    color: white;
+    background-color: white;
+    color: #007bff;
     text-align: center;
     padding: 20px 0;
     margin-top: 40px;
