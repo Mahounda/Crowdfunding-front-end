@@ -3,9 +3,11 @@ import NavBar from "./NavBar.jsx";
 import "../components/NavBar.css";
 function Layout() {
   return (
-    <div>
+      <div className="layout-container">
       <NavBar />
-      <Outlet />
+      <div className="layout-content">
+        <Outlet />
+      </div>
       <footer className="cf-footer">
         © 2026 2gethR Crowdfunding — Built by Mahounda Poinsonnet
       </footer>

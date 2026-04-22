@@ -39,7 +39,7 @@
         padding: 1rem;
         text-align: center;
     }
-    
+
     @media (max-width: 480px) {
     .cf-footer {
     display: flex;
@@ -65,4 +65,17 @@
     text-align: center;
     padding: 20px 0;
     margin-top: 40px;
+    font-size: px;
+}
+
+/* Make the whole page stretch to full height */
+.layout-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* This pushes the footer down */
+.layout-content {
+    flex: 1;
 }
